@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LOCO AI</string>
+
+    <string name="main_title">LOCO AI</string>
+    <string name="main_subtitle">AI가 만들어 주는 데이트 코스</string>
+    <string name="main_description">터치 몇 번 만으로 AI가 시간대, 장소, 날씨, 예산 등을 고려해\n데이트 코스를 자동으로 생성합니다</string>
 </resources>
