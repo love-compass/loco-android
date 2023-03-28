@@ -4,4 +4,30 @@
     <string name="main_title">LOCO AI</string>
     <string name="main_subtitle">AI가 만들어 주는 데이트 코스</string>
     <string name="main_description">터치 몇 번 만으로 AI가 시간대, 장소, 날씨, 예산 등을 고려해\n데이트 코스를 자동으로 생성합니다</string>
+
+    <string name="create_course">새로운 코스 생성하기</string>
+    <string name="load_course">저장한 코스 불러오기</string>
+
+    <string name="input_place">데이트 장소를 선택해주세요</string>
+    <string name="input_time">데이트 시간대를 정해주세요</string>
+    <string name="input_budget">데이트 예산을 입력해주세요</string>
+    <string name="input_require">그 외 요구사항을 입력해주세요</string>
+
+    <string name="requirement_textfield">요구사항(선택사항)</string>
+    <string name="requirement_placeholder">요구사항이 없다면 비워주세요</string>
+
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
+
+    <string name="input_exit_dialog_title">정말 나가시겠습니까?</string>
+    <string name="input_exit_dialog_text">입력하신 정보는 저장되지 않습니다</string>
+
+    <string name="previous">이전</string>
+    <string name="next">다음</string>
+    <string name="done">완료</string>
+
+    <string name="input_time_button">시간을 선택해주세요</string>
+    <string name="start_time">시작 시간</string>
+    <string name="end_time">종료 시간</string>
+    <string name="input_time_fmt">a HH시 mm분</string>
 </resources>
