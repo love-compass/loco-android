@@ -63,6 +63,9 @@ dependencies {
 
     implementation(libs.androidx.splashscreen)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.room.core)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
 
     implementation(libs.compose.ui.core)
     implementation(libs.compose.ui.tooling.preview)
@@ -73,6 +76,7 @@ dependencies {
     implementation(libs.squareup.okhttp)
     implementation(libs.squareup.okhttp.logging)
     implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.retrofit.gson)
 
     implementation(libs.coil.compose)
 
