@@ -94,4 +94,9 @@ fun LocoaiTheme(
             ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
         }
     }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        content = content
+    )
 }
