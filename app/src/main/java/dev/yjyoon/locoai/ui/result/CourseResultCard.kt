@@ -87,8 +87,11 @@ fun CourseResultCard(
                             DateTimeFormatter.ofPattern(stringResource(id = R.string.time_fmt))
                         )
                     }",
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(horizontal = 12.dp)
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f),
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                        .padding(bottom = 4.dp)
                 )
             }
             AsyncImage(
@@ -96,14 +99,16 @@ fun CourseResultCard(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(4 / 3f),
+                    .aspectRatio(16 / 9f),
                 contentScale = ContentScale.Crop
             )
             Text(
                 text = course.place.name,
-                fontSize = 20.sp,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 12.dp)
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(vertical = 4.dp)
             )
             CourseResultCardRowTag(
                 icon = Icons.Rounded.Label,

@@ -112,7 +112,8 @@ fun CourseResultScreen(
                         text = state.dateCourse.location,
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(bottom = 4.dp)
                     )
                 }
                 item {
