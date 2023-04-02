@@ -6,8 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.yjyoon.locoai.ui.model.DateCourse
-import kotlinx.coroutines.delay
+import dev.yjyoon.locoai.data.repository.CourseRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +15,9 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class CourseInputViewModel @Inject constructor() : ViewModel() {
+class CourseInputViewModel @Inject constructor(
+    private val courseRepository: CourseRepository
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<CourseInputUiState>(CourseInputUiState.Waiting)
     val uiState: StateFlow<CourseInputUiState> = _uiState.asStateFlow()
@@ -43,8 +44,19 @@ class CourseInputViewModel @Inject constructor() : ViewModel() {
     fun createCourse() {
         viewModelScope.launch {
             _uiState.value = CourseInputUiState.Loading
-            delay(1000L)
-            _uiState.value = CourseInputUiState.Success(DateCourse.TEST_COURSE)
+            courseRepository.getDateCourse(
+                place = place!!,
+                budget = budget!!,
+                require = require,
+                startTime = startTime!!,
+                endTime = endTime!!
+            )
+                .onSuccess {
+                    _uiState.value = CourseInputUiState.Success(it.toModel())
+                }
+                .onFailure {
+                    _uiState.value = CourseInputUiState.Failure(it)
+                }
         }
     }
 }

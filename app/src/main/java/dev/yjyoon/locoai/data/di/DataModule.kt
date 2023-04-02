@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -20,7 +21,7 @@ internal object DataModule {
     @Provides
     @Singleton
     @Named("BaseUrl")
-    fun provideBaseUrl(): String = "https://locoai.site/"
+    fun provideBaseUrl(): String = "http://locoai.site/"
 
     @Provides
     @Singleton
@@ -32,6 +33,7 @@ internal object DataModule {
 
         val okhttpClient = OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .connectTimeout(60, TimeUnit.SECONDS)
             .build()
 
         return Retrofit.Builder()
