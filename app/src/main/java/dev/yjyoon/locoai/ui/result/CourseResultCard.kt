@@ -167,7 +167,6 @@ fun CourseResultCard(
                             ) {
                                 Text(
                                     text = stringResource(id = R.string.cancel),
-                                    fontWeight = FontWeight.Bold
                                 )
                             }
                             Spacer(modifier = Modifier.width(12.dp))
@@ -185,7 +184,6 @@ fun CourseResultCard(
                             ) {
                                 Text(
                                     text = stringResource(id = R.string.recreate),
-                                    fontWeight = FontWeight.Bold
                                 )
                             }
                         }
