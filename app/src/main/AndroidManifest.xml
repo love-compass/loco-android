@@ -29,6 +29,10 @@
         <activity
             android:name=".ui.input.CourseInputActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.result.CourseResultActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

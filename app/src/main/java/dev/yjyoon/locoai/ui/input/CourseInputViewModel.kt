@@ -6,6 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.yjyoon.locoai.ui.model.DateCourse
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,6 +43,8 @@ class CourseInputViewModel @Inject constructor() : ViewModel() {
     fun createCourse() {
         viewModelScope.launch {
             _uiState.value = CourseInputUiState.Loading
+            delay(1000L)
+            _uiState.value = CourseInputUiState.Success(DateCourse.TEST_COURSE)
         }
     }
 }

@@ -130,7 +130,7 @@ fun CourseTimeInput(
                 Text(
                     text = startTime?.format(
                         DateTimeFormatter.ofPattern(
-                            stringResource(id = R.string.input_time_fmt)
+                            stringResource(id = R.string.time_fmt)
                         )
                     ) ?: stringResource(id = R.string.input_time_button),
                     style = MaterialTheme.typography.titleMedium,
@@ -167,7 +167,7 @@ fun CourseTimeInput(
                 Text(
                     text = endTime?.format(
                         DateTimeFormatter.ofPattern(
-                            stringResource(id = R.string.input_time_fmt)
+                            stringResource(id = R.string.time_fmt)
                         )
                     ) ?: stringResource(id = R.string.input_time_button),
                     style = MaterialTheme.typography.titleMedium,

@@ -29,7 +29,20 @@
     <string name="input_time_button">시간을 선택해주세요</string>
     <string name="start_time">시작 시간</string>
     <string name="end_time">종료 시간</string>
-    <string name="input_time_fmt">a HH시 mm분</string>
+    <string name="time_fmt">a HH시 mm분</string>
 
     <string name="course_creating">AI가 데이트 코스를 생성 중입니다!\n잠시만 기다려 주세요...</string>
+    <string name="please_wait">잠시만 기다려 주세요...</string>
+    
+    <string name="course_view">데이트 코스 조회</string>
+    <string name="course_view_sub">AI가 %s에 추천한 데이트 코스입니다</string>
+    <string name="date_fmt">M월 d일</string>
+    <string name="total_budget">총 비용 %s원</string>
+    <string name="place_budget">비용 %s원</string>
+
+    <string name="confirm">확인</string>
+    <string name="save">코스 저장하기</string>
+    <string name="change_course">이 코스가 마음에 안 들어요</string>
+    <string name="cancel">취소</string>
+    <string name="recreate">코스 변겅하기</string>
 </resources>

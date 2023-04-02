@@ -41,10 +41,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.yjyoon.locoai.R
 import dev.yjyoon.locoai.ui.component.QuestionDialog
+import dev.yjyoon.locoai.ui.model.DateCourse
 
 @Composable
 fun CourseInputScreen(
     viewModel: CourseInputViewModel,
+    navigateToResult: (DateCourse) -> Unit,
     onClose: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -112,7 +114,7 @@ fun CourseInputScreen(
             CourseInputLoading()
         }
         is CourseInputUiState.Success -> {
-
+            navigateToResult((state as CourseInputUiState.Success).course)
         }
         is CourseInputUiState.Failure -> {
 

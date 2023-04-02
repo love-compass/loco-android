@@ -1,4 +1,4 @@
-package dev.yjyoon.locoai.ui.input
+package dev.yjyoon.locoai.ui.result
 
 import android.content.Context
 import android.content.Intent
@@ -6,37 +6,30 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import dagger.hilt.android.AndroidEntryPoint
 import dev.yjyoon.locoai.ui.model.DateCourse
-import dev.yjyoon.locoai.ui.result.CourseResultActivity
 import dev.yjyoon.locoai.ui.theme.LocoaiTheme
 
-@AndroidEntryPoint
-class CourseInputActivity : ComponentActivity() {
+class CourseResultActivity : ComponentActivity() {
 
-    private val viewModel: CourseInputViewModel by viewModels()
+    private val viewModel: CourseResultViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             LocoaiTheme {
-                CourseInputScreen(
+                CourseResultScreen(
                     viewModel = viewModel,
-                    navigateToResult = ::startResultActivity,
                     onClose = ::finish
                 )
             }
         }
     }
 
-    private fun startResultActivity(dateCourse: DateCourse) {
-        CourseResultActivity.startActivity(this, dateCourse)
-        finish()
-    }
-
     companion object {
-        fun startActivity(context: Context) {
-            val intent = Intent(context, CourseInputActivity::class.java)
+        fun startActivity(context: Context, dateCourse: DateCourse) {
+            val intent = Intent(context, CourseResultActivity::class.java)
+                .putExtra(CourseResultViewModel.EXTRA_KEY_DATECOURSE, dateCourse)
             context.startActivity(intent)
         }
     }
