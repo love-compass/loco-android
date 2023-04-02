@@ -10,7 +10,7 @@ data class DateCourseResponse(
     @SerializedName("total_budget")
     val totalBudget: Int,
     @SerializedName("courses")
-    val courses: List<Course>
+    val courses: List<CourseResponse>
 ) {
 
     fun toModel() = DateCourse(
@@ -19,9 +19,9 @@ data class DateCourseResponse(
         courses = courses.map { it.toModel() }
     )
 
-    data class Course(
+    data class CourseResponse(
         @SerializedName("activity")
-        val place: Place,
+        val place: PlaceResponse,
         @SerializedName("budget")
         val budget: Int,
         @SerializedName("description")
@@ -40,7 +40,7 @@ data class DateCourseResponse(
             endTime = LocalDateTime.parse(endTime)
         )
 
-        data class Place(
+        data class PlaceResponse(
             @SerializedName("place_name")
             val name: String,
             @SerializedName("category_name")

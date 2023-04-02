@@ -138,7 +138,7 @@ fun CourseResultScreen(
                             onRecreate = { course, require ->
                                 viewModel.changeCourse(
                                     location = state.dateCourse.location,
-                                    prevCourse = course,
+                                    course = course,
                                     require = require
                                 )
                             }

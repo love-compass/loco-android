@@ -1,8 +1,11 @@
 package dev.yjyoon.locoai.ui.result
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.yjyoon.locoai.data.repository.CourseRepository
 import dev.yjyoon.locoai.ui.model.DateCourse
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +15,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CourseResultViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val courseRepository: CourseRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
@@ -23,24 +28,27 @@ class CourseResultViewModel @Inject constructor(
     )
     val uiState: StateFlow<CourseResultUiState> = _uiState.asStateFlow()
 
-    fun changeCourse(location: String, prevCourse: DateCourse.Course, require: String) {
+    fun changeCourse(location: String, course: DateCourse.Course, require: String) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             delay(1000L)
-            val newCourse = DateCourse.Course(
-                place = DateCourse.TEST_CHANGED_PLACE,
-                startTime = prevCourse.startTime,
-                endTime = prevCourse.endTime,
-                budget = 100000,
-                description = "수정된 데이트 코스 입니다 수정된 데이트 코스 입니다 수정된 데이트 코스 입니다 수정된 데이트 코스 입니다"
+            courseRepository.editCourse(
+                location = location,
+                course = course,
+                require = require
             )
-            _uiState.update { state ->
-                state.copy(
-                    dateCourse = state.dateCourse.copy(
-                        courses = state.dateCourse.courses.map { if (it == prevCourse) newCourse else it }
-                    )
-                )
-            }
+                .onSuccess { newCourse ->
+                    _uiState.update { state ->
+                        state.copy(
+                            dateCourse = state.dateCourse.copy(
+                                courses = state.dateCourse.courses.map {
+                                    if (it == course) newCourse.toModel() else it
+                                }
+                            )
+                        )
+                    }
+                }
+                .onFailure { Log.e("error", it.stackTraceToString()) }
             _uiState.update { it.copy(isLoading = false) }
         }
     }

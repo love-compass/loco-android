@@ -6,9 +6,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import dev.yjyoon.locoai.ui.model.DateCourse
 import dev.yjyoon.locoai.ui.theme.LocoaiTheme
 
+@AndroidEntryPoint
 class CourseResultActivity : ComponentActivity() {
 
     private val viewModel: CourseResultViewModel by viewModels()
