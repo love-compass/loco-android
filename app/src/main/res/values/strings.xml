@@ -32,7 +32,6 @@
     <string name="time_fmt">a HH시 mm분</string>
 
     <string name="course_creating">AI가 데이트 코스를 생성 중입니다!\n잠시만 기다려 주세요...</string>
-    <string name="please_wait">잠시만 기다려 주세요...</string>
 
     <string name="course_view">데이트 코스 조회</string>
     <string name="course_view_sub">AI가 %s에 추천한 데이트 코스입니다</string>
@@ -45,4 +44,5 @@
     <string name="change_course">이 코스가 마음에 안 들어요</string>
     <string name="cancel">취소</string>
     <string name="recreate">코스 변경하기</string>
+    <string name="course_saved">데이트 코스가 저장되었습니다</string>
 </resources>

@@ -1,5 +1,6 @@
 package dev.yjyoon.locoai.ui.result
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -48,6 +50,7 @@ fun CourseResultScreen(
     onClose: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
     val listState = rememberLazyListState()
     var isSaved by remember { mutableStateOf(false) }
 
@@ -84,7 +87,15 @@ fun CourseResultScreen(
                         }
                         Spacer(modifier = Modifier.width(12.dp))
                         Button(
-                            onClick = { isSaved = true },
+                            onClick = {
+                                viewModel.addDateCourse(state.dateCourse)
+                                isSaved = true
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.course_saved),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            },
                             enabled = isSaved.not(),
                             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 20.dp),
                             modifier = Modifier.weight(1f)
@@ -141,6 +152,7 @@ fun CourseResultScreen(
                                     course = course,
                                     require = require
                                 )
+                                isSaved = false
                             }
                         )
                         Divider(modifier = Modifier.padding(vertical = 12.dp))
@@ -183,7 +195,7 @@ fun CourseResultScreen(
                     ) {
                         CircularProgressIndicator()
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text(text = stringResource(id = R.string.please_wait))
+                        Text(text = stringResource(id = R.string.create_course))
                     }
                 }
             }

@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.yjyoon.locoai.data.repository.LocalRepository
 import dev.yjyoon.locoai.data.repository.RemoteRepository
 import dev.yjyoon.locoai.ui.model.DateCourse
 import kotlinx.coroutines.delay
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CourseResultViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val remoteRepository: RemoteRepository
+    private val remoteRepository: RemoteRepository,
+    private val localRepository: LocalRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
@@ -50,6 +52,12 @@ class CourseResultViewModel @Inject constructor(
                 }
                 .onFailure { Log.e("error", it.stackTraceToString()) }
             _uiState.update { it.copy(isLoading = false) }
+        }
+    }
+
+    fun addDateCourse(dateCourse: DateCourse) {
+        viewModelScope.launch {
+            localRepository.addDateCourse(dateCourse)
         }
     }
 
