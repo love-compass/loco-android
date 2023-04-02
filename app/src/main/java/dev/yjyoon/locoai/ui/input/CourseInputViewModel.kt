@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.yjyoon.locoai.data.repository.CourseRepository
+import dev.yjyoon.locoai.data.repository.RemoteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CourseInputViewModel @Inject constructor(
-    private val courseRepository: CourseRepository
+    private val remoteRepository: RemoteRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<CourseInputUiState>(CourseInputUiState.Waiting)
@@ -44,7 +44,7 @@ class CourseInputViewModel @Inject constructor(
     fun createCourse() {
         viewModelScope.launch {
             _uiState.value = CourseInputUiState.Loading
-            courseRepository.getDateCourse(
+            remoteRepository.getDateCourse(
                 place = place!!,
                 budget = budget!!,
                 require = require,

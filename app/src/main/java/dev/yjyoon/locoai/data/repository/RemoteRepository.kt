@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class CourseRepository @Inject constructor(
+class RemoteRepository @Inject constructor(
     private val apiService: ApiService
 ) {
 
