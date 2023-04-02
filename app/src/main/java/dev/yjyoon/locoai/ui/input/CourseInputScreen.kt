@@ -34,7 +34,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,7 +47,6 @@ fun CourseInputScreen(
     viewModel: CourseInputViewModel,
     onClose: () -> Unit
 ) {
-    val context = LocalContext.current
     val state by viewModel.uiState.collectAsState()
 
     var step by remember { mutableStateOf(0) }
@@ -78,7 +76,6 @@ fun CourseInputScreen(
                 },
                 content = { innerPadding ->
                     InputContent(
-                        state = state,
                         viewModel = viewModel,
                         question = question,
                         modifier = Modifier
@@ -93,7 +90,7 @@ fun CourseInputScreen(
                         enabledNext = viewModel.isValidInput(step),
                         onNextClick = { step++ },
                         showDone = step + 1 == maxStep,
-                        onDoneClick = { }
+                        onDoneClick = viewModel::createCourse
                     )
                 }
             )
@@ -112,7 +109,7 @@ fun CourseInputScreen(
             }
         }
         CourseInputUiState.Loading -> {
-
+            CourseInputLoading()
         }
         is CourseInputUiState.Success -> {
 
@@ -148,7 +145,6 @@ fun QuestionTextBox(text: String) {
 
 @Composable
 fun InputContent(
-    state: CourseInputUiState,
     viewModel: CourseInputViewModel,
     question: CourseInput.Question,
     modifier: Modifier = Modifier
