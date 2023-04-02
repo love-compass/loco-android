@@ -58,53 +58,68 @@ fun CourseInputScreen(
     val maxStep = CourseInput.courseInputQuestions.size
 
     BackHandler {
-        if (step > 0) step--
-        else {
-            showCloseDialog = true
+        if (state is CourseInputUiState.Waiting) {
+            if (step > 0) step--
+            else {
+                showCloseDialog = true
+            }
         }
     }
 
-    Scaffold(
-        topBar = {
-            CourseInputTopAppBar(
-                step = step,
-                maxStep = maxStep,
-                onClose = { showCloseDialog = true }
+    when (state) {
+        CourseInputUiState.Waiting -> {
+            Scaffold(
+                topBar = {
+                    CourseInputTopAppBar(
+                        step = step,
+                        maxStep = maxStep,
+                        onClose = { showCloseDialog = true }
+                    )
+                },
+                content = { innerPadding ->
+                    InputContent(
+                        state = state,
+                        viewModel = viewModel,
+                        question = question,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    )
+                },
+                bottomBar = {
+                    CourseInputBottomBar(
+                        showPrevious = step > 0,
+                        onPreviousClick = { step-- },
+                        enabledNext = viewModel.isValidInput(step),
+                        onNextClick = { step++ },
+                        showDone = step + 1 == maxStep,
+                        onDoneClick = { }
+                    )
+                }
             )
-        },
-        content = { innerPadding ->
-            InputContent(
-                state = state,
-                viewModel = viewModel,
-                question = question,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            )
-        },
-        bottomBar = {
-            CourseInputBottomBar(
-                showPrevious = step > 0,
-                onPreviousClick = { step-- },
-                enabledNext = state.isValidInput(step),
-                onNextClick = { step++ },
-                showDone = step + 1 == maxStep,
-                onDoneClick = { }
-            )
-        }
-    )
 
-    if (showCloseDialog) {
-        QuestionDialog(
-            title = stringResource(R.string.input_exit_dialog_title),
-            question = stringResource(R.string.input_exit_dialog_text),
-            onYes = {
-                showCloseDialog = false
-                onClose()
-            },
-            onNo = { showCloseDialog = false },
-            onDismissRequest = { showCloseDialog = false }
-        )
+            if (showCloseDialog) {
+                QuestionDialog(
+                    title = stringResource(R.string.input_exit_dialog_title),
+                    question = stringResource(R.string.input_exit_dialog_text),
+                    onYes = {
+                        showCloseDialog = false
+                        onClose()
+                    },
+                    onNo = { showCloseDialog = false },
+                    onDismissRequest = { showCloseDialog = false }
+                )
+            }
+        }
+        CourseInputUiState.Loading -> {
+
+        }
+        is CourseInputUiState.Success -> {
+
+        }
+        is CourseInputUiState.Failure -> {
+
+        }
     }
 }
 
@@ -151,30 +166,30 @@ fun InputContent(
             when (question.inputType) {
                 CourseInput.Type.Place -> {
                     CoursePlaceInput(
-                        places = CourseInputUiState.places,
-                        selected = state.place,
-                        onSelect = viewModel::setPlace
+                        places = CourseInputPlaces.list,
+                        selected = viewModel.place,
+                        onSelect = { viewModel.place = it }
                     )
                 }
                 CourseInput.Type.Time -> {
                     CourseTimeInput(
-                        startTime = state.startTime,
-                        endTime = state.endTime,
-                        onChangeStart = viewModel::setStartTime,
-                        onChangeEnd = viewModel::setEndTime
+                        startTime = viewModel.startTime,
+                        endTime = viewModel.endTime,
+                        onChangeStart = { viewModel.startTime = it },
+                        onChangeEnd = { viewModel.endTime = it }
                     )
                 }
                 CourseInput.Type.Budget -> {
                     CourseBudgetInput(
-                        budget = state.budget,
-                        onChange = viewModel::setBudget,
+                        budget = viewModel.budget,
+                        onChange = { viewModel.budget = it },
                         onAdd = viewModel::addBudget
                     )
                 }
                 CourseInput.Type.Require -> {
                     CourseRequireInput(
-                        value = state.require,
-                        onChange = viewModel::setRequire
+                        value = viewModel.require,
+                        onChange = { viewModel.require = it }
                     )
                 }
             }
