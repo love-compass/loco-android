@@ -28,6 +28,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,6 +49,7 @@ fun CourseResultScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
+    var isSaved by remember { mutableStateOf(false) }
 
     BackHandler {
         if (state.isLoading.not()) onClose()
@@ -80,7 +84,8 @@ fun CourseResultScreen(
                         }
                         Spacer(modifier = Modifier.width(12.dp))
                         Button(
-                            onClick = { onClose() },
+                            onClick = { isSaved = true },
+                            enabled = isSaved.not(),
                             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 20.dp),
                             modifier = Modifier.weight(1f)
                         ) {
