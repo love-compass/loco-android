@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
 import dev.yjyoon.locoai.ui.input.CourseInputActivity
+import dev.yjyoon.locoai.ui.library.CourseLibraryActivity
 import dev.yjyoon.locoai.ui.theme.LocoaiTheme
 
 @AndroidEntryPoint
@@ -15,7 +16,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             LocoaiTheme {
                 MainScreen(
-                    navigateToInput = ::startCourseInputActivity
+                    navigateToInput = ::startCourseInputActivity,
+                    navigateToLibrary = ::startCourseLibraryActivity
                 )
             }
         }
@@ -23,4 +25,7 @@ class MainActivity : ComponentActivity() {
 
     private fun startCourseInputActivity() =
         CourseInputActivity.startActivity(this)
+
+    private fun startCourseLibraryActivity() =
+        CourseLibraryActivity.startActivity(this)
 }

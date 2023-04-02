@@ -34,6 +34,10 @@
         <activity
             android:name=".ui.result.CourseResultActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.library.CourseLibraryActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

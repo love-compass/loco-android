@@ -25,7 +25,8 @@ import dev.yjyoon.locoai.R
 
 @Composable
 fun MainScreen(
-    navigateToInput: () -> Unit
+    navigateToInput: () -> Unit,
+    navigateToLibrary: () -> Unit
 ) {
     Scaffold { innerPadding ->
         Box(
@@ -81,7 +82,7 @@ fun MainScreen(
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 ElevatedButton(
-                    onClick = { /*TODO*/ },
+                    onClick = navigateToLibrary,
                     contentPadding = PaddingValues(vertical = 16.dp),
                     modifier = Modifier.fillMaxWidth()
                 )
