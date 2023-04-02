@@ -1,5 +1,6 @@
 package dev.yjyoon.locoai.ui.model
 
+import dev.yjyoon.locoai.data.model.DateCourseEntity
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -10,6 +11,14 @@ data class DateCourse(
     val courses: List<Course>,
     val date: LocalDate = courses[0].startTime.toLocalDate()
 ) : Serializable {
+
+    fun toEntity() = DateCourseEntity(
+        location = location,
+        totalBudget = totalBudget,
+        courses = courses,
+        date = date
+    )
+
     data class Course(
         val place: Place,
         val startTime: LocalDateTime,
@@ -17,6 +26,7 @@ data class DateCourse(
         val budget: Int,
         val description: String
     ) : Serializable {
+
         data class Place(
             val name: String,
             val category: String,
