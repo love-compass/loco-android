@@ -9,11 +9,15 @@ class LocalRepository @Inject constructor(
 ) {
 
     suspend fun addDateCourse(dateCourse: DateCourse): Result<Unit> = runCatching {
-        dateCourseDao.addDateCourse(dateCourse.toEntity())
+        val dateCourseWrapper = dateCourse.toEntity()
+        dateCourseDao.addDateCourse(dateCourseWrapper.dateCourse)
+        dateCourseWrapper.courses.forEach { dateCourseDao.addCourse(it) }
     }
 
     suspend fun deleteDateCourse(dateCourse: DateCourse): Result<Unit> = runCatching {
-        dateCourseDao.deleteDateCourse(dateCourse.toEntity())
+        val dateCourseWrapper = dateCourse.toEntity()
+        dateCourseDao.deleteDateCourse(dateCourseWrapper.dateCourse)
+        dateCourseWrapper.courses.forEach { dateCourseDao.deleteCourse(it) }
     }
 
     suspend fun getAllDateCourses(): Result<List<DateCourse>> = runCatching {
