@@ -37,7 +37,7 @@ internal object DataModule {
 
         val okhttpClient = OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .connectTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(40, TimeUnit.SECONDS)
             .build()
 
         return Retrofit.Builder()
