@@ -23,6 +23,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -32,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.yjyoon.locoai.R
+import dev.yjyoon.locoai.ui.component.QuestionDialog
 import dev.yjyoon.locoai.ui.input.QuitButton
 import dev.yjyoon.locoai.ui.model.DateCourse
 
@@ -43,6 +47,8 @@ fun CourseLibraryScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
+
+    var selectedDateCourse by remember { mutableStateOf<DateCourse?>(null) }
 
     Scaffold { innerPadding ->
         Column(
@@ -85,7 +91,8 @@ fun CourseLibraryScreen(
                     items(items = state.dateCourses) {
                         CourseLibraryCard(
                             dateCourse = it,
-                            onClick = { onClickItem(it) }
+                            onClick = { onClickItem(it) },
+                            onDelete = { selectedDateCourse = it }
                         )
                     }
                     item {
@@ -116,5 +123,17 @@ fun CourseLibraryScreen(
                 }
             }
         }
+    }
+    if (selectedDateCourse != null) {
+        QuestionDialog(
+            title = stringResource(R.string.delete_course_dialog),
+            question = stringResource(R.string.delete_course_dialog_text),
+            onYes = {
+                viewModel.deleteDateCourse(selectedDateCourse!!)
+                selectedDateCourse = null
+            },
+            onNo = { selectedDateCourse = null },
+            onDismissRequest = { selectedDateCourse = null }
+        )
     }
 }

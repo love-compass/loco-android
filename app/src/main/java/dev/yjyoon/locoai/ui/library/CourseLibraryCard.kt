@@ -1,5 +1,6 @@
 package dev.yjyoon.locoai.ui.library
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material.icons.rounded.CalendarToday
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.NearMe
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
@@ -39,7 +41,8 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun CourseLibraryCard(
     dateCourse: DateCourse,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onDelete: () -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
@@ -88,19 +91,32 @@ fun CourseLibraryCard(
                     )
                 )
                 Spacer(modifier = Modifier.height(3.dp))
-                CourseLibraryCardRowTag(
-                    icon = Icons.Filled.ReceiptLong,
-                    text = dateCourse.totalBudget.let {
-                        if (it == 0) {
-                            stringResource(id = R.string.free)
-                        } else {
-                            stringResource(
-                                id = R.string.total_budget,
-                                DecimalFormat("#,###").format(it)
-                            )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CourseLibraryCardRowTag(
+                        icon = Icons.Filled.ReceiptLong,
+                        text = dateCourse.totalBudget.let {
+                            if (it == 0) {
+                                stringResource(id = R.string.free)
+                            } else {
+                                stringResource(
+                                    id = R.string.total_budget,
+                                    DecimalFormat("#,###").format(it)
+                                )
+                            }
                         }
-                    }
-                )
+                    )
+                    Icon(
+                        imageVector = Icons.Rounded.Delete,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(16.dp)
+                            .clickable { onDelete() }
+                    )
+                }
             }
         }
     }

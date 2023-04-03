@@ -48,5 +48,8 @@
     <string name="cancel">취소</string>
     <string name="recreate">코스 변경하기</string>
     <string name="course_saved">데이트 코스가 저장되었습니다</string>
+
     <string name="empty_saved">아직 저장된 데이트 코스가 없습니다\nAI를 통해 간편하게 생성해 보세요!</string>
+    <string name="delete_course_dialog">데이트 코스 삭제</string>
+    <string name="delete_course_dialog_text">정말 선택한 데이트 코스를 삭제하시겠습니까?</string>
 </resources>
