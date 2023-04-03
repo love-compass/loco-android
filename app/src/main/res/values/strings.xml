@@ -38,6 +38,7 @@
     <string name="date_fmt">M월 d일</string>
     <string name="total_budget">총 비용 %s원</string>
     <string name="place_budget">비용 %s원</string>
+    <string name="free">무료</string>
 
     <string name="confirm">확인</string>
     <string name="save">코스 저장하기</string>

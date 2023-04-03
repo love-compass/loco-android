@@ -128,10 +128,16 @@ fun CourseResultCard(
             )
             CourseResultCardRowTag(
                 icon = Icons.Filled.ReceiptLong,
-                text = stringResource(
-                    id = R.string.place_budget,
-                    DecimalFormat("#,###").format(course.budget)
-                )
+                text = course.budget.let {
+                    if (it == 0) {
+                        stringResource(id = R.string.free)
+                    } else {
+                        stringResource(
+                            id = R.string.place_budget,
+                            DecimalFormat("#,###").format(it)
+                        )
+                    }
+                }
             )
             AnimatedContent(targetState = isEditing) {
                 if (it) {
@@ -226,7 +232,6 @@ fun CourseResultCardRowTag(
             contentDescription = null,
             tint = color
         )
-        Spacer(modifier = Modifier.width(0.dp))
         Text(
             text = text,
             fontSize = 14.sp,
