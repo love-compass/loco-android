@@ -4,5 +4,11 @@ import dev.yjyoon.locoai.ui.model.DateCourse
 
 data class CourseResultUiState(
     val dateCourse: DateCourse,
-    val isLoading: Boolean = false
-)
+    val isLoading: Boolean = false,
+    val mode: Mode
+) {
+
+    enum class Mode {
+        Result, Library
+    }
+}

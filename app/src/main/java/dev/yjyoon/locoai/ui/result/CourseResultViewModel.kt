@@ -8,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.yjyoon.locoai.data.repository.LocalRepository
 import dev.yjyoon.locoai.data.repository.RemoteRepository
 import dev.yjyoon.locoai.ui.model.DateCourse
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +24,8 @@ class CourseResultViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(
         CourseResultUiState(
-            dateCourse = requireNotNull(savedStateHandle.get<DateCourse>(EXTRA_KEY_DATECOURSE))
+            dateCourse = requireNotNull(savedStateHandle.get<DateCourse>(EXTRA_KEY_DATECOURSE)),
+            mode = requireNotNull(savedStateHandle.get<CourseResultUiState.Mode>(EXTRA_KEY_MODE))
         )
     )
     val uiState: StateFlow<CourseResultUiState> = _uiState.asStateFlow()
@@ -33,7 +33,6 @@ class CourseResultViewModel @Inject constructor(
     fun changeCourse(location: String, course: DateCourse.Course, require: String) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
-            delay(1000L)
             remoteRepository.editCourse(
                 location = location,
                 course = course,
@@ -63,5 +62,6 @@ class CourseResultViewModel @Inject constructor(
 
     companion object {
         const val EXTRA_KEY_DATECOURSE = "EXTRA_KEY_DATECOURSE"
+        const val EXTRA_KEY_MODE = "EXTRA_KEY_MODE"
     }
 }

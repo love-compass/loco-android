@@ -54,7 +54,8 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun CourseResultCard(
     course: DateCourse.Course,
-    onRecreate: (DateCourse.Course, String) -> Unit
+    onRecreate: (DateCourse.Course, String) -> Unit,
+    mode: CourseResultUiState.Mode
 ) {
     val uriHandler = LocalUriHandler.current
     val focusManager = LocalFocusManager.current
@@ -139,75 +140,77 @@ fun CourseResultCard(
                     }
                 }
             )
-            AnimatedContent(targetState = isEditing) {
-                if (it) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        OutlinedTextField(
-                            value = requirement,
-                            onValueChange = { requirement = it },
-                            label = { Text(text = stringResource(id = R.string.requirement_textfield)) },
-                            placeholder = { Text(text = stringResource(id = R.string.requirement_placeholder)) },
-                            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                            colors = TextFieldDefaults.outlinedTextFieldColors(containerColor = Color.White),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .aspectRatio(16 / 9f)
-                                .padding(horizontal = 12.dp)
-                        )
-                        Spacer(modifier = Modifier.height(12.dp))
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
+            if (mode == CourseResultUiState.Mode.Result) {
+                AnimatedContent(targetState = isEditing) {
+                    if (it) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            OutlinedTextField(
+                                value = requirement,
+                                onValueChange = { requirement = it },
+                                label = { Text(text = stringResource(id = R.string.requirement_textfield)) },
+                                placeholder = { Text(text = stringResource(id = R.string.requirement_placeholder)) },
+                                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                                colors = TextFieldDefaults.outlinedTextFieldColors(containerColor = Color.White),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .aspectRatio(16 / 9f)
+                                    .padding(horizontal = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 12.dp)
+                            ) {
+                                Button(
+                                    onClick = { isEditing = false },
+                                    contentPadding = PaddingValues(
+                                        vertical = 12.dp,
+                                        horizontal = 16.dp
+                                    ),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.onPrimary,
+                                        contentColor = MaterialTheme.colorScheme.primary
+                                    ),
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text(
+                                        text = stringResource(id = R.string.cancel),
+                                    )
+                                }
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Button(
+                                    onClick = {
+                                        onRecreate(course, requirement)
+                                        isEditing = false
+                                        requirement = ""
+                                    },
+                                    contentPadding = PaddingValues(
+                                        vertical = 12.dp,
+                                        horizontal = 16.dp
+                                    ),
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text(
+                                        text = stringResource(id = R.string.recreate),
+                                    )
+                                }
+                            }
+                        }
+                    } else {
+                        Button(
+                            onClick = { isEditing = true },
+                            contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 12.dp)
                         ) {
-                            Button(
-                                onClick = { isEditing = false },
-                                contentPadding = PaddingValues(
-                                    vertical = 12.dp,
-                                    horizontal = 16.dp
-                                ),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.onPrimary,
-                                    contentColor = MaterialTheme.colorScheme.primary
-                                ),
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                Text(
-                                    text = stringResource(id = R.string.cancel),
-                                )
-                            }
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Button(
-                                onClick = {
-                                    onRecreate(course, requirement)
-                                    isEditing = false
-                                    requirement = ""
-                                },
-                                contentPadding = PaddingValues(
-                                    vertical = 12.dp,
-                                    horizontal = 16.dp
-                                ),
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                Text(
-                                    text = stringResource(id = R.string.recreate),
-                                )
-                            }
+                            Text(text = stringResource(id = R.string.change_course))
                         }
-                    }
-                } else {
-                    Button(
-                        onClick = { isEditing = true },
-                        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 12.dp)
-                    ) {
-                        Text(text = stringResource(id = R.string.change_course))
                     }
                 }
             }

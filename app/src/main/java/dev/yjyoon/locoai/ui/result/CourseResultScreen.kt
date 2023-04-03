@@ -75,8 +75,14 @@ fun CourseResultScreen(
                             onClick = onClose,
                             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 20.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.onPrimary,
-                                contentColor = MaterialTheme.colorScheme.primary
+                                containerColor = when (state.mode) {
+                                    CourseResultUiState.Mode.Result -> MaterialTheme.colorScheme.onPrimary
+                                    CourseResultUiState.Mode.Library -> MaterialTheme.colorScheme.primary
+                                },
+                                contentColor = when (state.mode) {
+                                    CourseResultUiState.Mode.Result -> MaterialTheme.colorScheme.primary
+                                    CourseResultUiState.Mode.Library -> MaterialTheme.colorScheme.onPrimary
+                                }
                             ),
                             modifier = Modifier.weight(1f)
                         ) {
@@ -85,25 +91,30 @@ fun CourseResultScreen(
                                 fontWeight = FontWeight.Bold
                             )
                         }
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Button(
-                            onClick = {
-                                viewModel.addDateCourse(state.dateCourse)
-                                isSaved = true
-                                Toast.makeText(
-                                    context,
-                                    context.getString(R.string.course_saved),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            },
-                            enabled = isSaved.not(),
-                            contentPadding = PaddingValues(vertical = 16.dp, horizontal = 20.dp),
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.save),
-                                fontWeight = FontWeight.Bold
-                            )
+                        if (state.mode == CourseResultUiState.Mode.Result) {
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Button(
+                                onClick = {
+                                    viewModel.addDateCourse(state.dateCourse)
+                                    isSaved = true
+                                    Toast.makeText(
+                                        context,
+                                        context.getString(R.string.course_saved),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                },
+                                enabled = isSaved.not(),
+                                contentPadding = PaddingValues(
+                                    vertical = 16.dp,
+                                    horizontal = 20.dp
+                                ),
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.save),
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
                     }
                 }
@@ -153,7 +164,8 @@ fun CourseResultScreen(
                                     require = require
                                 )
                                 isSaved = false
-                            }
+                            },
+                            mode = state.mode
                         )
                         Divider(modifier = Modifier.padding(vertical = 12.dp))
                     }

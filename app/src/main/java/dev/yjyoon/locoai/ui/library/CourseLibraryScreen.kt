@@ -29,10 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.yjyoon.locoai.R
 import dev.yjyoon.locoai.ui.input.QuitButton
+import dev.yjyoon.locoai.ui.model.DateCourse
 
 @Composable
 fun CourseLibraryScreen(
     viewModel: CourseLibraryViewModel,
+    onClickItem: (DateCourse) -> Unit,
     onClose: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -78,7 +80,7 @@ fun CourseLibraryScreen(
                 items(items = state.dateCourses) {
                     CourseLibraryCard(
                         dateCourse = it,
-                        onClick = { }
+                        onClick = { onClickItem(it) }
                     )
                 }
                 item {

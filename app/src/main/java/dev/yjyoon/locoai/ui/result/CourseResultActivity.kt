@@ -29,9 +29,15 @@ class CourseResultActivity : ComponentActivity() {
     }
 
     companion object {
-        fun startActivity(context: Context, dateCourse: DateCourse) {
+        fun startActivity(
+            context: Context,
+            dateCourse: DateCourse,
+            mode: CourseResultUiState.Mode = CourseResultUiState.Mode.Result
+        ) {
             val intent = Intent(context, CourseResultActivity::class.java)
                 .putExtra(CourseResultViewModel.EXTRA_KEY_DATECOURSE, dateCourse)
+                .putExtra(CourseResultViewModel.EXTRA_KEY_MODE, mode)
+            
             context.startActivity(intent)
         }
     }
