@@ -57,7 +57,7 @@ internal object DataModule {
     fun provideDatabase(
         @ApplicationContext context: Context
     ): DateCourseDatabase = Room
-        .databaseBuilder(context, DateCourseDatabase::class.java, "date_course_table")
+        .databaseBuilder(context, DateCourseDatabase::class.java, "date_course_db")
         .build()
 
     @Singleton
