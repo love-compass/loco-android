@@ -32,16 +32,20 @@ class RemoteRepository @Inject constructor(
 
     suspend fun editCourse(
         location: String,
-        course: DateCourse.Course,
+        index: Int,
+        dateCourse: DateCourse,
         require: String
     ) = runCatching {
         apiService.editCourse(
             EditCourseRequest(
                 location = location,
-                placeName = course.place.name,
+                placeName = dateCourse.courses[index].place.name,
+                otherPlaceNames = dateCourse.courses
+                    .filterIndexed { idx, _ -> idx != index }
+                    .map { it.place.name },
                 requirement = require,
-                startTime = course.startTime.format(DateTimeFormatter.ISO_DATE_TIME),
-                endTime = course.endTime.format(DateTimeFormatter.ISO_DATE_TIME)
+                startTime = dateCourse.courses[index].startTime.format(DateTimeFormatter.ISO_DATE_TIME),
+                endTime = dateCourse.courses[index].endTime.format(DateTimeFormatter.ISO_DATE_TIME)
             )
         )
     }

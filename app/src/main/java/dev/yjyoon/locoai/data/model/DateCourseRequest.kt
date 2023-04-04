@@ -7,7 +7,7 @@ data class DateCourseRequest(
     val budget: Int,
     @SerializedName("place")
     val place: String,
-    @SerializedName("question")
+    @SerializedName("user_request")
     val requirement: String,
     @SerializedName("start_time")
     val startTime: String,

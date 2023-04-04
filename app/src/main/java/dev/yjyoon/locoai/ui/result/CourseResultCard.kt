@@ -54,7 +54,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun CourseResultCard(
     course: DateCourse.Course,
-    onRecreate: (DateCourse.Course, String) -> Unit,
+    onRecreate: (String) -> Unit,
     mode: CourseResultUiState.Mode
 ) {
     val uriHandler = LocalUriHandler.current
@@ -185,7 +185,7 @@ fun CourseResultCard(
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Button(
                                     onClick = {
-                                        onRecreate(course, requirement)
+                                        onRecreate(requirement)
                                         isEditing = false
                                         requirement = ""
                                     },

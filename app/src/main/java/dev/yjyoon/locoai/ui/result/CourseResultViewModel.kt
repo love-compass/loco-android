@@ -30,12 +30,18 @@ class CourseResultViewModel @Inject constructor(
     )
     val uiState: StateFlow<CourseResultUiState> = _uiState.asStateFlow()
 
-    fun changeCourse(location: String, course: DateCourse.Course, require: String) {
+    fun changeCourse(
+        location: String,
+        index: Int,
+        dateCourse: DateCourse,
+        require: String
+    ) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             remoteRepository.editCourse(
                 location = location,
-                course = course,
+                index = index,
+                dateCourse = dateCourse,
                 require = require
             )
                 .onSuccess { newCourse ->
@@ -43,7 +49,8 @@ class CourseResultViewModel @Inject constructor(
                         state.copy(
                             dateCourse = state.dateCourse.copy(
                                 courses = state.dateCourse.courses.map {
-                                    if (it == course) newCourse.toModel() else it
+                                    if (it == dateCourse.courses[index]) newCourse.toModel()
+                                    else it
                                 }
                             )
                         )
