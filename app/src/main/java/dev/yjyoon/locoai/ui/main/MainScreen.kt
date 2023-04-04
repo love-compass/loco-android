@@ -1,5 +1,6 @@
 package dev.yjyoon.locoai.ui.main
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,14 +9,25 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,35 +46,62 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            Column(
+            Image(
+                painter = painterResource(id = R.drawable.img_title),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .blur(4.dp),
+                contentScale = ContentScale.Crop,
+                colorFilter = ColorFilter.tint(
+                    color = Color.Black.copy(alpha = 0.1f),
+                    blendMode = BlendMode.Darken
+                )
+            )
+            Surface(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+                    .padding(bottom = 42.dp)
                     .align(Alignment.Center)
-                    .padding(16.dp)
-                    .padding(bottom = 32.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .shadow(elevation = 12.dp),
+                color = Color.White,
+                shape = RoundedCornerShape(12.dp)
             ) {
-                Text(
-                    text = stringResource(id = R.string.main_title),
-                    style = MaterialTheme.typography.headlineLarge,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 32.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Text(
-                    text = stringResource(id = R.string.main_subtitle),
-                    fontWeight = FontWeight.W500,
-                    fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.87f)
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = stringResource(id = R.string.main_description),
-                    fontSize = 12.sp,
-                    lineHeight = 16.sp,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.67f),
-                    textAlign = TextAlign.Center
-                )
+                Column(
+                    modifier = Modifier.padding(vertical = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.logo),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(42.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(id = R.string.main_title),
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 28.sp,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = stringResource(id = R.string.main_subtitle),
+                        fontWeight = FontWeight.W500,
+                        fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.87f)
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = stringResource(id = R.string.main_description),
+                        fontSize = 12.sp,
+                        lineHeight = 16.sp,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.67f),
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
             Column(
                 modifier = Modifier
