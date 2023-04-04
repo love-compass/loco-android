@@ -76,10 +76,9 @@ fun MainScreen(
                         painter = painterResource(id = R.drawable.logo),
                         contentDescription = null,
                         modifier = Modifier
-                            .size(42.dp)
+                            .size(52.dp)
                             .clip(RoundedCornerShape(8.dp))
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = stringResource(id = R.string.main_title),
                         style = MaterialTheme.typography.headlineLarge,
