@@ -1,6 +1,7 @@
 package dev.yjyoon.locoai.data.repository
 
 import dev.yjyoon.locoai.data.model.DateCourseRequest
+import dev.yjyoon.locoai.data.model.DateCourseResponse
 import dev.yjyoon.locoai.data.model.EditCourseRequest
 import dev.yjyoon.locoai.data.source.ApiService
 import dev.yjyoon.locoai.ui.model.DateCourse
@@ -18,7 +19,7 @@ class RemoteRepository @Inject constructor(
         require: String,
         startTime: LocalDateTime,
         endTime: LocalDateTime
-    ) = runCatching {
+    ): Result<DateCourseResponse> = runCatching {
         apiService.getDateCourse(
             DateCourseRequest(
                 place = place,
@@ -35,7 +36,7 @@ class RemoteRepository @Inject constructor(
         index: Int,
         dateCourse: DateCourse,
         require: String
-    ) = runCatching {
+    ): Result<DateCourseResponse.CourseResponse> = runCatching {
         apiService.editCourse(
             EditCourseRequest(
                 location = location,
