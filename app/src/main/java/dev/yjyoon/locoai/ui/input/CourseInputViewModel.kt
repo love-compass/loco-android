@@ -35,8 +35,8 @@ class CourseInputViewModel @Inject constructor(
     fun isValidInput(step: Int): Boolean =
         when (step) {
             0 -> place != null
-            1 -> startTime != null && endTime != null
-            2 -> budget != null
+            1 -> startTime != null && endTime != null && endTime!!.isAfter(startTime!!.plusHours(1))
+            2 -> budget != null && budget!! > 0
             3 -> true
             else -> false
         }
