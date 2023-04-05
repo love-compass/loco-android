@@ -293,3 +293,39 @@ fun CourseInputLoading() {
         }
     }
 }
+
+@Composable
+fun CourseInputFailure(
+    onRetry: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.primary),
+        contentAlignment = Alignment.Center
+    ) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 28.dp)
+                .align(Alignment.Center)
+                .shadow(elevation = 12.dp),
+            color = Color.White,
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(vertical = 32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(id = R.string.fail_to_create),
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                Button(onClick = onRetry) {
+                    Text(text = stringResource(id = R.string.retry))
+                }
+            }
+        }
+    }
+}

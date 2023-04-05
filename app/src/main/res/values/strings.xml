@@ -52,4 +52,7 @@
     <string name="empty_saved">아직 저장된 데이트 코스가 없습니다\nAI를 통해 간편하게 생성해 보세요!</string>
     <string name="delete_course_dialog">데이트 코스 삭제</string>
     <string name="delete_course_dialog_text">정말 선택한 데이트 코스를 삭제하시겠습니까?</string>
+
+    <string name="fail_to_create">데이트 코스 생성에 실패했습니다\n다시 시도해 주세요</string>
+    <string name="retry">다시 시도</string>
 </resources>

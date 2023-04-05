@@ -117,7 +117,7 @@ fun CourseInputScreen(
             navigateToResult((state as CourseInputUiState.Success).course)
         }
         is CourseInputUiState.Failure -> {
-
+            CourseInputFailure(onRetry = { viewModel.createCourse() })
         }
     }
 }

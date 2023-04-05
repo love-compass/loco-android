@@ -207,7 +207,7 @@ fun CourseResultScreen(
                     ) {
                         CircularProgressIndicator()
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text(text = stringResource(id = R.string.create_course))
+                        Text(text = stringResource(id = R.string.course_creating))
                     }
                 }
             }
