@@ -35,7 +35,7 @@ internal object DataModule {
             else HttpLoggingInterceptor.Level.NONE
         }
 
-        val timeout = Duration.ofSeconds(30)
+        val timeout = Duration.ofSeconds(80)
         val okhttpClient = OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .connectTimeout(timeout)
