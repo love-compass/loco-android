@@ -286,7 +286,7 @@ fun CourseInputLoading() {
                 CircularProgressIndicator()
                 Spacer(modifier = Modifier.height(18.dp))
                 Text(
-                    text = stringResource(id = R.string.course_creating),
+                    text = stringResource(id = R.string.course_creating_minute),
                     textAlign = TextAlign.Center
                 )
             }

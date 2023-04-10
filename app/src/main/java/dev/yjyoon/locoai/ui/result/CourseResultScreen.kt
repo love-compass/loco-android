@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.yjyoon.locoai.R
@@ -207,7 +208,10 @@ fun CourseResultScreen(
                     ) {
                         CircularProgressIndicator()
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text(text = stringResource(id = R.string.course_creating))
+                        Text(
+                            text = stringResource(id = R.string.course_creating),
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
             }

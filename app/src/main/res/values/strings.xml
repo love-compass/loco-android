@@ -31,6 +31,7 @@
     <string name="end_time">종료 시간</string>
     <string name="time_fmt">a HH시 mm분</string>
 
+    <string name="course_creating_minute">AI가 데이트 코스를 생성 중입니다!\n최대 약 1분 정도 소요됩니다...</string>
     <string name="course_creating">AI가 데이트 코스를 생성 중입니다!\n잠시만 기다려 주세요...</string>
 
     <string name="course_view">데이트 코스 조회</string>
