@@ -51,7 +51,9 @@ class CourseResultViewModel @Inject constructor(
                                 courses = state.dateCourse.courses.map {
                                     if (it == dateCourse.courses[index]) newCourse.toModel()
                                     else it
-                                }
+                                },
+                                totalBudget = state.dateCourse.totalBudget +
+                                        newCourse.budget - dateCourse.courses[index].budget
                             )
                         )
                     }
